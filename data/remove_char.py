@@ -32,22 +32,7 @@ def lower(fname):
     	s=s.lower()
     	outfile.write(s)
 
-
-def unique_file(fname):
-    infile = open('lower_'+fname, 'r')
-    file_contents = infile.read()
-    infile.close()
-    word_list = file_contents.split()
-    s=[]
-    outfile = open('unique_'+fname, 'w')
-    for word in word_list:
-    	if word not in s:
-    		s.append(word)
-    		outfile.write(str(word)+"\n")       
-    outfile.close()
-# get_uniq(pos)
-
-# remove_char(pos)
-
+remove_char(pos)
+remove_char(neg)
 lower(pos)
-unique_file(pos)
+lower(neg)
