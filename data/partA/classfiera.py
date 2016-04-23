@@ -52,28 +52,32 @@ def lower(fname):
     outfile = open('temp_'+fname,'w')
     outfile.write(data)
 
-name_list=[]
+stopwords=[]
 def read_names():
+    # inputfile=open('stopwords.txt','r')
+    # stopwords=inputfile.readlines()
+    # stopwords=[word.strip('\n') for word in stop_words]
+    # print stopwords
     with open('stopwords.txt','r') as f:
-        name_list=[line.strip() for line in f]
-        # print name_list
-    return (name_list)
+        stopwords=[line.strip() for line in f]
+        print stopwords
+    return stopwords
 
 
 def  removestopwords(fname):
-    name_list=read_names()
+    stopwords=read_names()
     infile = open(fname, 'r')
     file_contents = infile.read()
     infile.close()
     word_list = file_contents.split()
     s=[]
-    # print (name_list)
+    # print (stopwords)
     for word in word_list:
-        if word not in name_list:
+        if word not in stopwords:
             s.append(word)
-    if(count<=1):
-        print s
-        count++
+    # if(count<=1):
+    #     print s
+    #     count++
     return s
 
 def createdict(s):
@@ -193,6 +197,7 @@ def crossvalidate():
         for j in range(1,11):
 
             if j!=i:
+                print str(j)+'\n'
                 inpos=open(str(j)+pos)
                 postrain+=inpos.read()
                 inpos.close()
@@ -214,6 +219,10 @@ def crossvalidate():
         splitting()
 
         positive=pickleIn('pos_dict')
+        outfile=open('positive.txt','w+')
+        for line in positive:
+            outfile.write(line)
+        outfile.close()
         #print positive
         negative=pickleIn('neg_dict')
         vocabulary=pickleIn('vocab_dict')
@@ -271,7 +280,7 @@ def main():
     # replace_char(neg)
     # lower(pos)
     # lower(neg)
-    # name_list=read_names()
+    # stopwords=read_names()
     # tenfold(pos)
     # tenfold(neg)
     # read_names()
